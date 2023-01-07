@@ -13,9 +13,15 @@ find()
     
     [ ! -d "$filepath" ] && echo "$filepath is  not a directory"  && exit 1
 
-    for file in $(ls -R $filepath ); do
-        if [ -f "$file" ] ; then
-	    echo "$file"
+    if [ -d "$filepath" ] ; then
+	basedir="${filepath}"
+    else
+    	basedir="$(dirname $filepath)"
+    fi	
+    for file in "${basedir}"/*; do
+#	echo "file-> $file <-"
+
+        if [ -n "$file" ] ; then
             matches="$(grep -i "$tofind" $file | wc -l)"
             number_of_matches=$(( $number_of_matches + $matches ))
             number_of_files=$(( $number_of_files + 1 ))
@@ -24,4 +30,4 @@ find()
     echo "The number of files are $number_of_files and the number of matching lines are $number_of_matches"
 }
 
-find $1 $2
+find "$1" "$2"
