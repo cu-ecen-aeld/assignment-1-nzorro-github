@@ -5,7 +5,7 @@
 set -e
 
 cd `dirname $0`
-test_dir=`pwd`
+test_dir="$PWD"
 echo "starting test with SKIP_BUILD=\"${SKIP_BUILD}\" and DO_VALIDATE=\"${DO_VALIDATE}\""
 
 # This part of the script always runs as the current user, even when
